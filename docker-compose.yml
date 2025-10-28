@@ -1,15 +1,6 @@
 version: '3.8'
 
 services:
-  backend:
-    build:
-      context: ./backend
-      dockerfile: DockerFile
-    container_name: wwe_backend
-    ports:
-      - "5000:5000"
-    networks:
-      - wwe-network
 
   frontend:
     build:
@@ -20,6 +11,34 @@ services:
       - "3000:80"
     depends_on:
       - backend
+    networks:
+      - wwe-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: DockerFile
+    container_name: wwe_backend
+    ports:
+      - "5000:5000"
+  
+    environment:
+      - DB_HOST=mysql
+      - DB_USER=root
+      - DB_PASSWORD=mysecretpassword
+      - DB_DATABASE=wwe_db
+    depends_on:
+      - mysql
+    networks:
+      - wwe-network
+
+  mysql:
+    image: mysql:8.0
+    container_name: wwe_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: mysecretpassword
+    volumes:
+      - ./mysql-init:/docker-entrypoint-initdb.d
     networks:
       - wwe-network
 
