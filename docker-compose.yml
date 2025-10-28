@@ -1,7 +1,8 @@
 version: '3.8'
 
 services:
-
+  
+  # SERVICE 1: THE FRONTEND (REACT)
   frontend:
     build:
       context: ./frontend
@@ -14,6 +15,7 @@ services:
     networks:
       - wwe-network
 
+  # SERVICE 2: THE BACKEND (NODE.JS API)
   backend:
     build:
       context: ./backend
@@ -21,7 +23,6 @@ services:
     container_name: wwe_backend
     ports:
       - "5000:5000"
-  
     environment:
       - DB_HOST=mysql
       - DB_USER=root
@@ -32,6 +33,7 @@ services:
     networks:
       - wwe-network
 
+  # SERVICE 3: THE DATABASE (MYSQL)
   mysql:
     image: mysql:8.0
     container_name: wwe_mysql
@@ -42,6 +44,16 @@ services:
     networks:
       - wwe-network
 
-networks:
-  wwe-network:
-    driver: bridge
+  # --- NEW SERVICE 4: PHPMYADMIN ---
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: wwe_phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      - PMA_HOST=mysql
+    networks:
+      - wwe-network
+    depends_on:
+      - mysql
