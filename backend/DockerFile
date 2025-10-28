@@ -1,0 +1,13 @@
+FROM node:20-alpine
+WORKDIR /app
+
+# We copy package.json and package-lock.json first
+# But we don't have them, so we'll create a basic one
+COPY server.js .
+COPY wrestlers.json .
+
+# Install express and cors
+RUN npm install express cors
+
+EXPOSE 5000
+CMD [ "node", "server.js" ]
