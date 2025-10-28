@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
-// --- Main App Component ---
 function App() {
   const [wrestlers, setWrestlers] = useState([]);
   const API_URL = 'http://192.168.56.1:5000/api/wrestlers';
 
-  // 1. Fetch all wrestlers on component load
   useEffect(() => {
     fetchWrestlers();
   }, []);
@@ -129,7 +127,7 @@ const Hero = () => (
       <button className="explore-btn">Explore Shows</button>
     </div>
     <div className="hero-image">
-      <img src="https://i.imgur.com/8Q1mP4N.png" alt="Ronda Rousey" /> 
+      <img src="/images/ronda.jpg" alt="Ronda Rousey" /> 
       {/* Using a placeholder for Ronda, update with a real one! */}
     </div>
   </div>
