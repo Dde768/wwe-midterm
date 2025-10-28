@@ -2,7 +2,9 @@ version: '3.8'
 
 services:
   backend:
-    build: ./backend
+    build:
+      context: ./backend
+      dockerfile: DockerFile
     container_name: wwe_backend
     ports:
       - "5000:5000"
@@ -10,7 +12,9 @@ services:
       - wwe-network
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      dockerfile: DockerFile
     container_name: wwe_frontend
     ports:
       - "3000:80"
