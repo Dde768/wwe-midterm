@@ -57,3 +57,8 @@ services:
       - wwe-network
     depends_on:
       - mysql
+
+# --- THIS IS THE BLOCK YOU ARE MISSING ---
+networks:
+  wwe-network:
+    driver: bridge
